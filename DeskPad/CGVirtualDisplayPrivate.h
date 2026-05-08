@@ -2,7 +2,7 @@
 //  CGVirtualDisplayPrivate.h
 //  VirtualDisplayExp
 //
-//  Created by Khaos Tian on 2/17/21.
+//  Modified to support Rotation
 //
 
 #import <Cocoa/Cocoa.h>
@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(retain, nonatomic) NSArray<CGVirtualDisplayMode *> *modes;
 @property(nonatomic) unsigned int hiDPI;
+@property(nonatomic) double rotation; // Propiedad añadida para rotación (0, 90, 180, 270)
 
 - (instancetype)init;
 
@@ -33,18 +34,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CGVirtualDisplay : NSObject
 
-@property(readonly, nonatomic) NSArray *modes; // @synthesize modes=_modes;
-@property(readonly, nonatomic) unsigned int hiDPI; // @synthesize hiDPI=_hiDPI;
-@property(readonly, nonatomic) CGDirectDisplayID displayID; // @synthesize displayID=_displayID;
-@property(readonly, nonatomic) id terminationHandler; // @synthesize terminationHandler=_terminationHandler;
-@property(readonly, nonatomic) dispatch_queue_t queue; // @synthesize queue=_queue;
-@property(readonly, nonatomic) unsigned int maxPixelsHigh; // @synthesize maxPixelsHigh=_maxPixelsHigh;
-@property(readonly, nonatomic) unsigned int maxPixelsWide; // @synthesize maxPixelsWide=_maxPixelsWide;
-@property(readonly, nonatomic) CGSize sizeInMillimeters; // @synthesize sizeInMillimeters=_sizeInMillimeters;
-@property(readonly, nonatomic) NSString *name; // @synthesize name=_name;
-@property(readonly, nonatomic) unsigned int serialNum; // @synthesize serialNum=_serialNum;
-@property(readonly, nonatomic) unsigned int productID; // @synthesize productID=_productID;
-@property(readonly, nonatomic) unsigned int vendorID; // @synthesize vendorID=_vendorID;
+@property(readonly, nonatomic) NSArray *modes;
+@property(readonly, nonatomic) unsigned int hiDPI;
+@property(readonly, nonatomic) CGDirectDisplayID displayID;
+@property(readonly, nonatomic) id terminationHandler;
+@property(readonly, nonatomic) dispatch_queue_t queue;
+@property(readonly, nonatomic) unsigned int maxPixelsHigh;
+@property(readonly, nonatomic) unsigned int maxPixelsWide;
+@property(readonly, nonatomic) CGSize sizeInMillimeters;
+@property(readonly, nonatomic) NSString *name;
+@property(readonly, nonatomic) unsigned int serialNum;
+@property(readonly, nonatomic) unsigned int productID;
+@property(readonly, nonatomic) unsigned int vendorID;
+@property(readonly, nonatomic) double rotation; // Propiedad de solo lectura para el estado actual
 
 - (instancetype)initWithDescriptor:(CGVirtualDisplayDescriptor *)arg1;
 - (BOOL)applySettings:(CGVirtualDisplaySettings *)arg1;
@@ -53,14 +55,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CGVirtualDisplayDescriptor : NSObject
 
-@property(retain, nonatomic) dispatch_queue_t queue; // @synthesize queue=_queue;
-@property(retain, nonatomic) NSString *name; // @synthesize name=_name;
-@property(nonatomic) unsigned int maxPixelsHigh; // @synthesize maxPixelsHigh=_maxPixelsHigh;
-@property(nonatomic) unsigned int maxPixelsWide; // @synthesize maxPixelsWide=_maxPixelsWide;
-@property(nonatomic) CGSize sizeInMillimeters; // @synthesize sizeInMillimeters=_sizeInMillimeters;
-@property(nonatomic) unsigned int serialNum; // @synthesize serialNum=_serialNum;
-@property(nonatomic) unsigned int productID; // @synthesize productID=_productID;
-@property(nonatomic) unsigned int vendorID; // @synthesize vendorID=_vendorID;
+@property(retain, nonatomic) dispatch_queue_t queue;
+@property(retain, nonatomic) NSString *name;
+@property(nonatomic) unsigned int maxPixelsHigh;
+@property(nonatomic) unsigned int maxPixelsWide;
+@property(nonatomic) CGSize sizeInMillimeters;
+@property(nonatomic) unsigned int serialNum;
+@property(nonatomic) unsigned int productID;
+@property(nonatomic) unsigned int vendorID;
+@property(nonatomic) double rotation; // Permite definir la rotación inicial
 @property(copy, nonatomic) void (^terminationHandler)(id, CGVirtualDisplay*);
 
 - (instancetype)init;
